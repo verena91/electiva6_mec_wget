@@ -1,0 +1,21 @@
+#!/bin/bash
+rm -rf converter.class
+rm -rf Persona.class
+cat /dev/null > wget.sh
+cat /dev/null > nomina_administrativos_lista
+cat /dev/null > funcionarios.csv
+for I in $(seq $1)
+do
+echo "wget --post-data 'authenticity_token=2oil4Kvo%2FiikP57FSFGlTaMlsad1%2BGfC6xamw4aS71s%3D&form_buscar_nominas%5Bano_periodo_pago%5D=$2&form_buscar_nominas%5Bmes_periodo_pago%5D=$3&form_buscar_nominas_antiguedad_administrativo=&form_buscar_nominas_asignacion=&form_buscar_nominas_asignacion_operador=%3E&form_buscar_nominas_codigo_trabajador=&form_buscar_nominas_estado=&form_buscar_nominas_nombre_objeto_gasto=&form_buscar_nominas_nombre_trabajador=&page=$I&utf8=%E2%9C%93' -q -O - http://datos.mec.gov.py/data/nomina_administrativos_lista >> nomina_administrativos_lista" >> wget.sh
+done
+echo "Script de llamadas Wget al Mec en ejecución"
+chmod 750 wget.sh
+./wget.sh
+echo "Archivo nomina_administrativos_lista cargado exitosamente"
+rm -rf wget.sh
+sed -i 's/\\n/\n/g' nomina_administrativos_lista
+sed -i 's/\\//g' nomina_administrativos_lista
+echo "Compilando y ejecutando Converter.java"
+javac converter.java Persona.java
+java converter
+echo "El archivo funcionarios.csv generado exitosamente"
