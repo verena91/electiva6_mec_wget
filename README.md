@@ -1,4 +1,4 @@
-ista de funcionarios Administrativos MEC a través de llamadas WGET
+Lista de funcionarios Administrativos MEC a través de llamadas WGET
 ==================================================================
 
 * Crear un directorio donde se ubicarán los archivos.
